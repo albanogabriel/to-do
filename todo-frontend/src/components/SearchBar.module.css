@@ -1,0 +1,41 @@
+.searchBarContainer {
+  display: flex;
+  margin-top: calc(0px - 1.625rem);
+}
+
+.searchBar {
+  background: var(--gray-400);
+  padding: 1rem;
+  border: none;
+  border-radius: 8px;
+  width: 100%;
+  color: var(--gray-200);
+}
+
+.searchBar::placeholder {
+  color: var(--gray-300);
+}
+
+.searchBarContainer button {
+  white-space: nowrap;
+  padding: 1rem;
+  margin-left: 0.5rem;
+  border-radius: 8px;
+  border: none;
+  background-color: var(--blue-dark);
+  color: var(--white);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.searchBarContainer button:disabled {
+  display: none;
+  cursor: not-allowed;
+}
+
+.createTaskBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.35rem;
+}

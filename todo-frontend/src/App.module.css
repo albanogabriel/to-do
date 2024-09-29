@@ -1,0 +1,22 @@
+.tasksContainer {
+  max-width: 736px;
+  width: 90%;
+  margin: 0 auto;
+  display: grid;
+  gap: 2rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4.5rem 0rem 4.5rem 0rem;
+  background-color: var(--gray-700);
+}
+
+@media (max-width: 768px){
+  html {
+      /* caso queiramos mudar o padrão base de 16px para 14px. Utilizamos uma regra de 3: se 16px é 100%, 14px é X(quanto) ? ... x = 87,5%  */
+      font-size: 87.5%;
+  }
+}

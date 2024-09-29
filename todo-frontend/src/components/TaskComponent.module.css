@@ -1,0 +1,38 @@
+.divWithTasks {
+  background-color: var(--gray-400);
+  padding: 1rem;
+  border-radius: 8px ;
+  margin-bottom: 1rem;
+}
+
+.divWithTasksContainer {
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.divWithTasksContainerCheckBoxP {
+  display: flex;
+}
+
+.divWithTasksContainer input {
+  margin-right: 1rem;
+}
+
+.divWithTasksContainer p {
+  margin-right: 1rem;
+}
+
+.divWithTasksContainer button {
+  background: transparent;
+  border: 0;
+  line-height: 0;
+  border-radius: 2px;
+  cursor: pointer;
+  padding: 2px;
+}
+
+
+.divWithTasksContainer button:hover {
+  background-color: var(--gray-700);
+}

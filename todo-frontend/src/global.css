@@ -1,0 +1,40 @@
+:root {
+  --white: #fff;
+  --danger: #E25858;
+
+  --blue-dark: #1E6F9F;
+  --blue:#4EA8DE ;
+  --purple-dark:#5E60CE ;
+  --purple:#8284FA ;
+  
+  --gray-700: #0D0D0D;
+  --gray-600: #1A1A1A;
+  --gray-500: #262626;
+  --gray-400: #333333;
+  --gray-300: #808080;
+  --gray-200: #D9D9D9;
+  --gray-100: #F2F2F2;
+}
+
+:focus {
+  outline: transparent; /* tira o focus padrão */
+  box-shadow: 0 0 0 2px var(--purple);
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--gray-500);
+  color: var(--gray-200);
+  -webkit-font-smoothing: antialiased;
+}
+
+body, input, textarea, button { /* Por padrão esses elementos(input, textarea, button. Não herdam a font do body, eles tem sua própria customização de font */
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 1rem; /* usa isso para que tenha o mesmo padrão de fonte 1rem = 16px */
+}
