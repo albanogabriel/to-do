@@ -1,4 +1,4 @@
-# rojeto Full-Stack: Aplicação com React e Node.js
+# Projeto Full-Stack: Aplicação com React e Node.js
 
 Este repositório contém um projeto full-stack, que combina uma interface frontend desenvolvida em React com um backend em Node.js (puro). O projeto visa demonstrar a integração entre essas tecnologias, além de utilizar um sistema simples de banco de dados físico, armazenado em um arquivo de texto. Para a construção e otimização do frontend, o Vite foi utilizado como bundler, juntamente com CSS Modules para a estilização modular e escopada.
 
