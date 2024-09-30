@@ -2,8 +2,13 @@ import styles from './SearchBar.module.css'
 
 import plusIcon from '../assets/botao-add.svg'
 import { useState } from 'react'
+import { Task } from '../types/tasks'
 
-export function SearchBar() {
+interface SearchBarProps {
+  onCreateTask: (task: Task) => void
+}
+
+export function SearchBar({ onCreateTask }: SearchBarProps) {
   const [task, setTask] = useState('')
 
   const handleCreateTask = async () => {
@@ -11,13 +16,17 @@ export function SearchBar() {
       return
     }
 
-    await fetch('http://localhost:3333/tasks', {
+    const response = await fetch('http://localhost:3333/tasks', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ title: task })
     })
+
+    const data = await response.json()
+
+    onCreateTask(data)
   }
 
   return (
