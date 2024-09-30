@@ -59,7 +59,10 @@ export const routes = [
 
       database.insert("tasks", task);
 
-      return res.writeHead(201).end("Criação de tarefas");
+      // Retornar o objeto da tarefa criada com um código de status 201
+      return res
+        .writeHead(201, { "Content-Type": "application/json" })
+        .end(JSON.stringify(task));
     },
   },
   {
