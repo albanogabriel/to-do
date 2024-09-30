@@ -24,15 +24,24 @@ export function TasksArea() {
     getTasks()
   }, [])
 
+  function onDeleteTask(id: string) {
+    const tasksWithoutDeletedOne = tasks.filter((task) => task.id !== id)
+    setTasks(tasksWithoutDeletedOne)
+  }
+
+  function onCreateTask(task: Task) {
+    setTasks([...tasks, task])
+  }
+
   const hasTasks = tasks.length > 0
 
   return (
     <main>
-      <SearchBar />
+      <SearchBar onCreateTask={onCreateTask} />
 
       {hasTasks ? (
         tasks.map((task) => {
-          return <TaskComponent data={task} />
+          return <TaskComponent data={task} onDeleteTask={onDeleteTask} />
         })
       ) : (
         <div className={styles.divWithoutTasks}>
