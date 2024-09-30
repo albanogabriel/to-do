@@ -1,66 +1,40 @@
 import clipBoard from '../assets/clipboard.svg'
-import { SearchBar } from './SearchBar'
+import { useState, useEffect } from 'react'
+import { Task } from '../types/tasks'
 import { TaskComponent } from './TaskComponent'
-
+import { SearchBar } from './SearchBar'
 import styles from './TasksArea.module.css'
-import { useState } from 'react'
-
-export interface taskType {
-  key: number
-  nomeTarefa: string
-  isChecked: boolean
-}
 
 export function TasksArea() {
-  const [taskValue, setTaskValue] = useState([
-    { key: 1, nomeTarefa: 'Tomar 2 Litros de Água', isChecked: false }
-  ])
+  const [tasks, setTasks] = useState<Task[] | []>([])
 
-  function toggleTask(constTaskValueAsParameter: taskType) {
-    const updatedTasks = taskValue.map((task) => {
-      if (task.key === constTaskValueAsParameter.key) {
-        //vai alterar a propriedade isChecked para diferente do que era true -> false -> true
-        return { ...task, isChecked: !task.isChecked }
+  useEffect(() => {
+    const getTasks = async () => {
+      try {
+        const response = await fetch('http://localhost:3333/tasks', {
+          method: 'GET'
+        })
+        const data = await response.json() // Parse do JSON
+        setTasks(data)
+      } catch (error) {
+        console.log('error')
       }
-      return task
-    })
+    }
 
-    setTaskValue(updatedTasks)
-  }
+    getTasks()
+  }, [])
 
-  function handleCreateTask(newTask: taskType) {
-    setTaskValue([...taskValue, newTask])
-  }
-
-  function deleteTask(taskClickedOnButtonDelete: taskType) {
-    const tasksWithoutDeleteOne = taskValue.filter((taskItem) => {
-      return taskItem.key !== taskClickedOnButtonDelete.key
-    })
-
-    setTaskValue(tasksWithoutDeleteOne)
-  }
-
-  const taskArrayIsEmpty = taskValue.length === 0
+  const hasTasks = tasks.length > 0
 
   return (
     <main>
-      <SearchBar onCreateTask={handleCreateTask} taskValue={taskValue} />
+      <SearchBar />
 
-      <div className={styles.tasksInfoContainer}>
-        <div className={styles.tasksInfo}>
-          <p className={styles.taskInfoCreatedTasks}>Tarefas criadas</p>
-          <span className={styles.taskInfoButton}>{taskValue.length}</span>
-        </div>
-        <div className={styles.tasksInfo}>
-          <p className={styles.taskInfoCheckedTasks}>Concluídas</p>
-          <span className={styles.taskInfoButton}>
-            {taskValue.filter((task) => task.isChecked).length}
-          </span>
-        </div>
-      </div>
-      <div className={styles.divLine}></div>
-
-      {taskArrayIsEmpty ? (
+      {hasTasks ? (
+        tasks.map((task) => {
+          return <TaskComponent data={task} />
+        })
+      ) : (
         <div className={styles.divWithoutTasks}>
           <img src={clipBoard} alt="" />
           <div>
@@ -68,16 +42,6 @@ export function TasksArea() {
             <p>Crie tarefas e organize seus itens a fazer</p>
           </div>
         </div>
-      ) : (
-        taskValue.map((task) => {
-          return (
-            <TaskComponent
-              content={task}
-              onDeleteTask={deleteTask}
-              onToggleTask={toggleTask}
-            />
-          )
-        })
       )}
     </main>
   )

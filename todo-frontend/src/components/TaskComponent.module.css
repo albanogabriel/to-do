@@ -1,18 +1,18 @@
 .divWithTasks {
   background-color: var(--gray-400);
   padding: 1rem;
-  border-radius: 8px ;
+  border-radius: 8px;
   margin-bottom: 1rem;
 }
 
 .divWithTasksContainer {
   display: flex;
   justify-content: space-between;
-
 }
 
 .divWithTasksContainerCheckBoxP {
   display: flex;
+  align-items: center;
 }
 
 .divWithTasksContainer input {
@@ -32,7 +32,19 @@
   padding: 2px;
 }
 
-
 .divWithTasksContainer button:hover {
   background-color: var(--gray-700);
+}
+
+.buttonContainer {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+}
+
+.pencilIcon {
+  width: 19px;
+  height: 19px;
+  color: white;
 }

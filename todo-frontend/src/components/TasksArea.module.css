@@ -1,12 +1,16 @@
 .taskContainer {
-  justify-content: center;
 }
 
 .tasksInfoContainer {
   display: flex;
-  justify-content: space-between;
+  gap: 16px;
   margin-top: 4rem;
   margin-bottom: 1.5rem;
+
+  @media (min-width: 767px) {
+    gap: 0px;
+    justify-content: space-between;
+  }
 }
 
 .tasksInfo {
@@ -47,6 +51,3 @@
   justify-content: center;
   align-items: center;
 }
-
-
-

@@ -1,6 +1,9 @@
 .searchBarContainer {
   display: flex;
   margin-top: calc(0px - 1.625rem);
+  width: 100%;
+  justify-content: space-between;
+  padding-bottom: 80px;
 }
 
 .searchBar {
@@ -10,6 +13,11 @@
   border-radius: 8px;
   width: 100%;
   color: var(--gray-200);
+}
+
+.inputsContainer {
+  display: flex;
+  gap: 8px;
 }
 
 .searchBar::placeholder {
