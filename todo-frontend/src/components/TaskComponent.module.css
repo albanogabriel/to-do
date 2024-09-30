@@ -15,6 +15,10 @@
   align-items: center;
 }
 
+.description {
+  color: var(--gray-300);
+}
+
 .divWithTasksContainer input {
   margin-right: 1rem;
 }

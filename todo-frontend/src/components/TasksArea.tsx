@@ -33,6 +33,20 @@ export function TasksArea() {
     setTasks([...tasks, task])
   }
 
+  function onUpdateTask(data: {
+    id: string
+    title: string
+    description: string
+  }) {
+    const updatedTasks = tasks.map((task) => {
+      return task.id === data.id
+        ? { ...task, title: data.title, description: data.description }
+        : task
+    })
+
+    setTasks(updatedTasks)
+  }
+
   const hasTasks = tasks.length > 0
 
   return (
@@ -41,7 +55,13 @@ export function TasksArea() {
 
       {hasTasks ? (
         tasks.map((task) => {
-          return <TaskComponent data={task} onDeleteTask={onDeleteTask} />
+          return (
+            <TaskComponent
+              data={task}
+              onDeleteTask={onDeleteTask}
+              onUpdateTask={onUpdateTask}
+            />
+          )
         })
       ) : (
         <div className={styles.divWithoutTasks}>

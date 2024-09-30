@@ -5,13 +5,27 @@ import { useState } from 'react'
 interface EditModalProps {
   taskId: string
   setModalIsOpen: (isOpen: boolean) => void
+  onUpdateTask: (data: {
+    id: string
+    title: string
+    description: string
+  }) => void
 }
 
-export function EditModal({ taskId, setModalIsOpen }: EditModalProps) {
+export function EditModal({
+  taskId,
+  setModalIsOpen,
+  onUpdateTask
+}: EditModalProps) {
   const [title, seTitle] = useState('')
   const [description, setDescription] = useState('')
 
   const handleEditTask = async () => {
+    if (!title) {
+      alert('teste')
+      return
+    }
+
     await fetch(`http://localhost:3333/tasks/${taskId}`, {
       method: 'PUT',
       headers: {
@@ -21,6 +35,12 @@ export function EditModal({ taskId, setModalIsOpen }: EditModalProps) {
         title: title,
         description: description
       })
+    })
+
+    onUpdateTask({
+      id: taskId,
+      title: title,
+      description: description
     })
   }
 

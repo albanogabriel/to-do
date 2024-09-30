@@ -10,10 +10,19 @@ import { useState } from 'react'
 interface TaskComponentProps {
   data: Task
   onDeleteTask: (id: string) => void
+  onUpdateTask: (data: {
+    id: string
+    title: string
+    description: string
+  }) => void
   // onToggleTask: (task: Task) => void
 }
 
-export function TaskComponent({ data, onDeleteTask }: TaskComponentProps) {
+export function TaskComponent({
+  data,
+  onDeleteTask,
+  onUpdateTask
+}: TaskComponentProps) {
   const [modalIsOpen, setModalIsOpen] = useState(false)
   // const [checked, setChecked] = useState(content.isChecked)
 
@@ -36,7 +45,11 @@ export function TaskComponent({ data, onDeleteTask }: TaskComponentProps) {
     <div>
       {modalIsOpen &&
         createPortal(
-          <EditModal setModalIsOpen={setModalIsOpen} taskId={data.id} />,
+          <EditModal
+            setModalIsOpen={setModalIsOpen}
+            taskId={data.id}
+            onUpdateTask={onUpdateTask}
+          />,
           document.body
         )}
       <div className={styles.divWithTasks}>
@@ -49,7 +62,7 @@ export function TaskComponent({ data, onDeleteTask }: TaskComponentProps) {
               // onChange={handleChangeInput}
             />
             <p>{data.title}</p>
-            <p>{data.description}</p>
+            <p className={styles.description}>{data.description}</p>
           </div>
           <div className={styles.buttonContainer}>
             <button onClick={() => setModalIsOpen(true)}>
