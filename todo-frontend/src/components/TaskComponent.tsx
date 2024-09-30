@@ -1,6 +1,6 @@
 // import { useState } from 'react'
-// import trashIcon from '../assets/trashicon.svg'
-// import pencilIcon from '../assets/pencil.svg'
+import trashIcon from '../assets/trashicon.svg'
+import pencilIcon from '../assets/pencil.svg'
 
 // import { taskType } from './TasksArea'
 
@@ -16,24 +16,23 @@ interface TaskComponentProps {
 export function TaskComponent({ data }: TaskComponentProps) {
   // const [checked, setChecked] = useState(content.isChecked)
 
-  // function handleDeleteTask() {
-  //   onDeleteTask(content)
-  // }
+  const handleDeleteTask = async () => {
+    // onDeleteTask(content)
+    await fetch(`http://localhost:3333/tasks/${data.id}`, {
+      method: 'DELETE'
+    })
+  }
 
-  // function handleChangeChecked() {
-  //   setChecked(!checked)
-  // }
-
-  // function handleChangeInput() {
-  //   onToggleTask(content)
-  // }
+  const handleChangeChecked = async () => {
+    // setChecked(!checked)
+  }
 
   return (
     <div className={styles.divWithTasks}>
       <div className={styles.divWithTasksContainer}>
         <div className={styles.divWithTasksContainerCheckBoxP}>
           <input
-            // onClick={handleChangeChecked}
+            onClick={handleChangeChecked}
             type="checkbox"
             // checked={checked}
             // onChange={handleChangeInput}
@@ -42,12 +41,12 @@ export function TaskComponent({ data }: TaskComponentProps) {
           <p>{data.description}</p>
         </div>
         <div className={styles.buttonContainer}>
-          {/* <button onClick={handleDeleteTask}>
+          <button onClick={handleDeleteTask}>
             <img className={styles.pencilIcon} src={pencilIcon} alt="" />
           </button>
           <button onClick={handleDeleteTask}>
             <img src={trashIcon} alt="" />
-          </button> */}
+          </button>
         </div>
       </div>
     </div>

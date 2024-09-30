@@ -11,19 +11,13 @@ export function SearchBar() {
       return
     }
 
-    const response = await fetch('http://localhost:3333/tasks', {
+    await fetch('http://localhost:3333/tasks', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ title: task })
     })
-
-    if (response.ok) {
-      console.log('task criada com sucesso')
-    } else {
-      console.log('erro ao criar tarefa')
-    }
   }
 
   return (
