@@ -2,7 +2,6 @@
   background-color: var(--gray-400);
   padding: 1rem;
   border-radius: 8px;
-  margin-bottom: 1rem;
 }
 
 .divWithTasksContainer {
@@ -17,6 +16,10 @@
 
 .description {
   color: var(--gray-300);
+}
+
+.checked {
+  text-decoration: line-through;
 }
 
 .divWithTasksContainer input {

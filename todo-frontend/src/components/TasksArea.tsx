@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { Task } from '../types/tasks'
 import { TaskComponent } from './TaskComponent'
 import { SearchBar } from './SearchBar'
+import styles from './TasksArea.module.css'
+import clipBoard from '../assets/clipboard.svg'
 
 export function TasksArea() {
   const [tasks, setTasks] = useState<Task[] | []>([])
@@ -67,29 +69,53 @@ export function TasksArea() {
     <main>
       <SearchBar onCreateTask={onCreateTask} />
 
-      <h2>Tasks</h2>
-      {tasksToConclude.map((task) => {
-        return (
-          <TaskComponent
-            data={task}
-            onDeleteTask={onDeleteTask}
-            onUpdateTask={onUpdateTask}
-            onCheckTask={onCheckTask}
-          />
-        )
-      })}
-
-      <h2>Tasks Concluídas</h2>
-      {tasksConcluded.map((task) => {
-        return (
-          <TaskComponent
-            data={task}
-            onDeleteTask={onDeleteTask}
-            onUpdateTask={onUpdateTask}
-            onCheckTask={onCheckTask}
-          />
-        )
-      })}
+      <div className={styles.tasksContainer}>
+        <div className={styles.tasks}>
+          <h2>Tasks</h2>
+          {tasksToConclude.length > 0 ? (
+            tasksToConclude.map((task) => {
+              return (
+                <TaskComponent
+                  data={task}
+                  onDeleteTask={onDeleteTask}
+                  onUpdateTask={onUpdateTask}
+                  onCheckTask={onCheckTask}
+                />
+              )
+            })
+          ) : (
+            <div className={styles.divWithoutTasks}>
+              <img src={clipBoard} alt="" />
+              <div>
+                <p>Você ainda não tem tarefas cadastradas</p>
+                <p>Crie tarefas e organize seus itens a fazer</p>
+              </div>
+            </div>
+          )}
+        </div>
+        <div className={styles.tasks}>
+          <h2>Tasks Concluídas</h2>
+          {tasksConcluded.length > 0 ? (
+            tasksConcluded.map((task) => {
+              return (
+                <TaskComponent
+                  data={task}
+                  onDeleteTask={onDeleteTask}
+                  onUpdateTask={onUpdateTask}
+                  onCheckTask={onCheckTask}
+                />
+              )
+            })
+          ) : (
+            <div className={styles.divWithoutTasks}>
+              <img src={clipBoard} alt="" />
+              <div>
+                <p>Você ainda não tem tarefas concluídas</p>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
 
       {/* {hasTasks ? (
         tasks.map((task) => {

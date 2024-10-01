@@ -80,8 +80,16 @@ export function TaskComponent({
               type="checkbox"
               checked={checked}
             />
-            <p>{data.title}</p>
-            <p className={styles.description}>{data.description}</p>
+            <p className={`${checked ? styles.checked : ''} ${styles.title}`}>
+              {data.title}
+            </p>
+            <p
+              className={`${checked ? styles.checked : ''} ${
+                styles.description
+              }`}
+            >
+              {data.description}
+            </p>
           </div>
           <div className={styles.buttonContainer}>
             <button onClick={() => setModalIsOpen(true)}>

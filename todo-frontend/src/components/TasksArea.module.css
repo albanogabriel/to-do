@@ -1,4 +1,13 @@
-.taskContainer {
+.tasksContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
 .tasksInfoContainer {
