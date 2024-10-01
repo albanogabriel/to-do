@@ -16,7 +16,10 @@ const server = http.createServer(async (req, res) => {
 
   // Configurando CORS
   res.setHeader("Access-Control-Allow-Origin", "*"); // Permite todas as origens
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE"); // Permite os métodos necessários
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, PATCH"
+  ); // Permite os métodos necessários
   res.setHeader("Access-Control-Allow-Headers", "Content-Type"); // Permite cabeçalhos específicos
 
   // Verificando OPTIONS request (preflight)

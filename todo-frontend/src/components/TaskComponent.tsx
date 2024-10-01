@@ -15,30 +15,50 @@ interface TaskComponentProps {
     title: string
     description: string
   }) => void
+  onCheckTask: (completedAt: {
+    id: string
+    completed_at: string | null
+  }) => void
   // onToggleTask: (task: Task) => void
 }
 
 export function TaskComponent({
   data,
   onDeleteTask,
-  onUpdateTask
+  onUpdateTask,
+  onCheckTask
 }: TaskComponentProps) {
   const [modalIsOpen, setModalIsOpen] = useState(false)
-  // const [checked, setChecked] = useState(content.isChecked)
+  const [checked, setChecked] = useState(data.completed_at !== null)
 
   const handleDeleteTask = async () => {
     // onDeleteTask(content)
-    await fetch(`http://localhost:3333/tasks/${data.id}`, {
-      method: 'DELETE'
-    })
+    try {
+      await fetch(`http://localhost:3333/tasks/${data.id}`, {
+        method: 'DELETE'
+      })
+    } catch (error) {
+      console.log('erro')
+    }
 
     onDeleteTask(data.id)
   }
 
-  // const handleEditTask = async () => {}
-
   const handleChangeChecked = async () => {
-    // setChecked(!checked)
+    try {
+      await fetch(`http://localhost:3333/tasks/${data.id}/toggle-completed`, {
+        method: 'PATCH'
+      })
+
+      onCheckTask({
+        id: data.id,
+        completed_at: checked ? null : new Date().toISOString() // Toggle the completed_at value
+      })
+
+      setChecked(!checked)
+    } catch (error) {
+      console.log('handleChangeChecked error')
+    }
   }
 
   return (
@@ -47,8 +67,8 @@ export function TaskComponent({
         createPortal(
           <EditModal
             setModalIsOpen={setModalIsOpen}
-            taskId={data.id}
             onUpdateTask={onUpdateTask}
+            data={data}
           />,
           document.body
         )}
@@ -58,8 +78,7 @@ export function TaskComponent({
             <input
               onClick={handleChangeChecked}
               type="checkbox"
-              // checked={checked}
-              // onChange={handleChangeInput}
+              checked={checked}
             />
             <p>{data.title}</p>
             <p className={styles.description}>{data.description}</p>

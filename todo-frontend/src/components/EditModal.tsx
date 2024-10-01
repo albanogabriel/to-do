@@ -1,9 +1,10 @@
 import { X } from 'phosphor-react'
 import styles from './EditModal.module.css'
 import { useState } from 'react'
+import { Task } from '../types/tasks'
 
 interface EditModalProps {
-  taskId: string
+  data: Task
   setModalIsOpen: (isOpen: boolean) => void
   onUpdateTask: (data: {
     id: string
@@ -13,7 +14,7 @@ interface EditModalProps {
 }
 
 export function EditModal({
-  taskId,
+  data,
   setModalIsOpen,
   onUpdateTask
 }: EditModalProps) {
@@ -26,22 +27,25 @@ export function EditModal({
       return
     }
 
-    await fetch(`http://localhost:3333/tasks/${taskId}`, {
+    await fetch(`http://localhost:3333/tasks/${data.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
+        ...data,
         title: title,
         description: description
       })
     })
 
     onUpdateTask({
-      id: taskId,
+      id: data.id,
       title: title,
       description: description
     })
+
+    setModalIsOpen(false)
   }
 
   return (

@@ -1,9 +1,7 @@
-import clipBoard from '../assets/clipboard.svg'
 import { useState, useEffect } from 'react'
 import { Task } from '../types/tasks'
 import { TaskComponent } from './TaskComponent'
 import { SearchBar } from './SearchBar'
-import styles from './TasksArea.module.css'
 
 export function TasksArea() {
   const [tasks, setTasks] = useState<Task[] | []>([])
@@ -47,13 +45,53 @@ export function TasksArea() {
     setTasks(updatedTasks)
   }
 
-  const hasTasks = tasks.length > 0
+  function onCheckTask(data: { id: string; completed_at: string | null }) {
+    const updatedCheckTasks = tasks.map((task) => {
+      return task.id === data.id
+        ? {
+            ...task,
+            completed_at: task.completed_at ? null : new Date().toISOString()
+          }
+        : task
+    })
+
+    setTasks(updatedCheckTasks)
+  }
+
+  // const hasTasks = tasks.length > 0
+
+  const tasksToConclude = tasks.filter((task) => task.completed_at === null)
+  const tasksConcluded = tasks.filter((task) => task.completed_at !== null)
 
   return (
     <main>
       <SearchBar onCreateTask={onCreateTask} />
 
-      {hasTasks ? (
+      <h2>Tasks</h2>
+      {tasksToConclude.map((task) => {
+        return (
+          <TaskComponent
+            data={task}
+            onDeleteTask={onDeleteTask}
+            onUpdateTask={onUpdateTask}
+            onCheckTask={onCheckTask}
+          />
+        )
+      })}
+
+      <h2>Tasks Concluídas</h2>
+      {tasksConcluded.map((task) => {
+        return (
+          <TaskComponent
+            data={task}
+            onDeleteTask={onDeleteTask}
+            onUpdateTask={onUpdateTask}
+            onCheckTask={onCheckTask}
+          />
+        )
+      })}
+
+      {/* {hasTasks ? (
         tasks.map((task) => {
           return (
             <TaskComponent
@@ -71,7 +109,7 @@ export function TasksArea() {
             <p>Crie tarefas e organize seus itens a fazer</p>
           </div>
         </div>
-      )}
+      )} */}
     </main>
   )
 }
